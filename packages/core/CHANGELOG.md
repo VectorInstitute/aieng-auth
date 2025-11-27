@@ -1,5 +1,11 @@
 # @vector-institute/aieng-auth-core
 
+## 0.1.2
+
+### Patch Changes
+
+- 518bd26: Fix package name references in README from @cyberark-auth/core to @vector-institute/aieng-auth-core
+
 ## 0.1.1
 
 ### Patch Changes

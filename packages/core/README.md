@@ -1,4 +1,4 @@
-# @cyberark-auth/core
+# @vector-institute/aieng-auth-core
 
 Framework-agnostic CyberArk OAuth authentication core library with PKCE support.
 
@@ -14,11 +14,11 @@ Framework-agnostic CyberArk OAuth authentication core library with PKCE support.
 ## Installation
 
 ```bash
-npm install @cyberark-auth/core
+npm install @vector-institute/aieng-auth-core
 # or
-pnpm add @cyberark-auth/core
+pnpm add @vector-institute/aieng-auth-core
 # or
-yarn add @cyberark-auth/core
+yarn add @vector-institute/aieng-auth-core
 ```
 
 ## Quick Start
@@ -29,7 +29,7 @@ import {
   TokenManager,
   MemoryTokenStorage,
   type AuthConfig,
-} from '@cyberark-auth/core';
+} from '@vector-institute/aieng-auth-core';
 
 // Configure authentication
 const config: AuthConfig = {
@@ -67,7 +67,7 @@ import {
   MemoryTokenStorage,
   SessionStorageAdapter,
   LocalStorageAdapter,
-} from '@cyberark-auth/core';
+} from '@vector-institute/aieng-auth-core';
 
 // Memory storage (most secure, lost on refresh)
 const memoryStorage = new MemoryTokenStorage();
@@ -82,7 +82,7 @@ const localStorage = new LocalStorageAdapter();
 ### Token Manager
 
 ```typescript
-import { TokenManager } from '@cyberark-auth/core';
+import { TokenManager } from '@vector-institute/aieng-auth-core';
 
 const manager = new TokenManager(storage);
 
@@ -109,7 +109,7 @@ await manager.clearTokens();
 ### Token Validation
 
 ```typescript
-import { decodeToken, isTokenExpired, validateToken } from '@cyberark-auth/core';
+import { decodeToken, isTokenExpired, validateToken } from '@vector-institute/aieng-auth-core';
 
 // Decode JWT
 const decoded = decodeToken(accessToken);
