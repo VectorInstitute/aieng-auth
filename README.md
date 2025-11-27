@@ -13,7 +13,8 @@ Production-ready Google OAuth SSO for Vector internal web applications.
 
 - `@aieng-auth/core` - Framework-agnostic OAuth client with PKCE
 - `@aieng-auth/react` - React hooks and components (AuthProvider, useAuth, ProtectedRoute)
-- `demo-react` - Demo application
+- `demo-react` - Client-side OAuth demo with React SPA
+- `demo-nextjs` - Server-side OAuth demo with Next.js App Router
 
 ## Quick Start
 
@@ -118,13 +119,23 @@ VITE_ALLOWED_DOMAINS=vectorinstitute.ai
 
 ## Demo
 
-Run the demo app:
+### React SPA (Client-Side)
 
 ```bash
 cd apps/demo-react
 cp .env.example .env  # Add your Google OAuth Client ID
-pnpm dev
+pnpm dev              # Runs on http://localhost:3000
 ```
+
+### Next.js (Server-Side)
+
+```bash
+cd apps/demo-nextjs
+cp .env.example .env  # Add Google OAuth credentials and session secret
+pnpm dev              # Runs on http://localhost:3001
+```
+
+The Next.js demo uses server-side sessions with HTTP-only cookies for enhanced security, while the React demo uses client-side PKCE flow.
 
 ## Security
 
