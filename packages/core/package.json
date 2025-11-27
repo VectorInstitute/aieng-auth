@@ -1,6 +1,6 @@
 {
   "name": "@vector-institute/aieng-auth-core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Framework-agnostic Google OAuth authentication core library",
   "keywords": [
     "google",

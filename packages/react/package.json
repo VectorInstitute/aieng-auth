@@ -1,6 +1,6 @@
 {
   "name": "@vector-institute/aieng-auth-react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React hooks and components for Google OAuth authentication",
   "keywords": [
     "google",
