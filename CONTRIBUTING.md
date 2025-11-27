@@ -5,17 +5,20 @@ Thank you for your interest in contributing! This guide will help you get starte
 ## Development Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/VectorInstitute/aieng-auth.git
    cd aieng-auth
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Build packages**
+
    ```bash
    pnpm build
    ```
@@ -63,6 +66,7 @@ pnpm changeset
 ```
 
 You'll be prompted to:
+
 1. **Select packages** - Choose which packages changed (use spacebar to select):
    - `@vector-institute/aieng-auth-core` - if you modified the core OAuth client
    - `@vector-institute/aieng-auth-react` - if you modified React components/hooks
@@ -74,6 +78,7 @@ You'll be prompted to:
    - **major** (x.0.0) - Breaking changes
 
 3. **Write a summary** - Describe what changed (this appears in the changelog):
+
    ```
    Added support for custom OAuth scopes
 
@@ -100,6 +105,7 @@ git push origin feature/your-feature-name
 ### When to Create a Changeset
 
 ✅ **Always create a changeset for:**
+
 - New features
 - Bug fixes
 - Breaking changes
@@ -107,6 +113,7 @@ git push origin feature/your-feature-name
 - Performance improvements
 
 ❌ **Skip changeset for:**
+
 - Documentation-only changes
 - Test improvements with no code changes
 - Internal refactoring with no user-facing changes
@@ -115,6 +122,7 @@ git push origin feature/your-feature-name
 ### Changeset Examples
 
 **Bug Fix (patch):**
+
 ```markdown
 Fixed token refresh failing when offline
 
@@ -123,6 +131,7 @@ refresh and retries with exponential backoff.
 ```
 
 **New Feature (minor):**
+
 ```markdown
 Added ProtectedRoute component
 
@@ -131,22 +140,27 @@ login page and supports custom redirect paths.
 ```
 
 **Breaking Change (major):**
-```markdown
+
+````markdown
 BREAKING: Changed AuthProvider config structure
 
 The `config` prop now uses a flat structure instead of nested
 objects. Update your code:
 
 Before:
+
 ```tsx
-<AuthProvider config={{ oauth: { clientId: "..." } }} />
+<AuthProvider config={{ oauth: { clientId: '...' } }} />
 ```
+````
 
 After:
+
 ```tsx
-<AuthProvider config={{ clientId: "..." }} />
+<AuthProvider config={{ clientId: '...' }} />
 ```
-```
+
+````
 
 ## Code Style
 
@@ -166,7 +180,7 @@ pnpm test:watch
 
 # Run tests with coverage
 pnpm test -- --coverage
-```
+````
 
 ## Release Process
 

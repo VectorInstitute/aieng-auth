@@ -191,6 +191,7 @@ Configure npm Trusted Publishers to allow GitHub Actions to publish without toke
 4. **Repeat for all packages**: Do steps 2-3 for both `@vector-institute/aieng-auth-core` and `@vector-institute/aieng-auth-react`
 
 **Note**: If packages don't exist yet on npm, you can either:
+
 - Create them manually first (recommended)
 - Or publish the first version using a temporary automation token, then configure trusted publishing
 
@@ -199,14 +200,17 @@ Configure npm Trusted Publishers to allow GitHub Actions to publish without toke
 1. **Make your changes** and commit them to a branch
 
 2. **Create a changeset** describing your changes:
+
    ```bash
    pnpm changeset
    ```
+
    - Select the packages that changed (core, react, or both)
    - Select the version bump type (major, minor, or patch)
    - Provide a description of the changes
 
 3. **Commit the changeset** along with your code changes:
+
    ```bash
    git add .changeset
    git commit -m "feat: your feature description"
