@@ -6,7 +6,7 @@ import {
   getTimeUntilExpiration,
   type AuthTokens,
   type User,
-} from '@aieng-auth/core';
+} from '@vector-institute/aieng-auth-core';
 import { AuthContext } from './auth-context';
 import type { AuthProviderProps, AuthState } from './types';
 

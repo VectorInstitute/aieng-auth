@@ -11,4 +11,4 @@ export type { AuthState, AuthContextValue, AuthProviderProps } from './types';
 export type { ProtectedRouteProps } from './protected-route';
 
 // Re-export core types for convenience
-export type { AuthConfig, AuthTokens, User, PKCEChallenge } from '@aieng-auth/core';
+export type { AuthConfig, AuthTokens, User, PKCEChallenge } from '@vector-institute/aieng-auth-core';

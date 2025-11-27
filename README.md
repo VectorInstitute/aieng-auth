@@ -1,4 +1,4 @@
-# @aieng-auth
+# @vector-institute/aieng-auth
 
 Production-ready Google OAuth SSO for Vector internal web applications.
 
@@ -11,8 +11,8 @@ Production-ready Google OAuth SSO for Vector internal web applications.
 
 ## Packages
 
-- `@aieng-auth/core` - Framework-agnostic OAuth client with PKCE
-- `@aieng-auth/react` - React hooks and components (AuthProvider, useAuth, ProtectedRoute)
+- `@vector-institute/aieng-auth-core` - Framework-agnostic OAuth client with PKCE
+- `@vector-institute/aieng-auth-react` - React hooks and components (AuthProvider, useAuth, ProtectedRoute)
 - `demo-react` - Client-side OAuth demo with React SPA
 - `demo-nextjs` - Server-side OAuth demo with Next.js App Router
 
@@ -21,13 +21,13 @@ Production-ready Google OAuth SSO for Vector internal web applications.
 ### 1. Install
 
 ```bash
-pnpm add @aieng-auth/react
+pnpm add @vector-institute/aieng-auth-react
 ```
 
 ### 2. Wrap Your App
 
 ```tsx
-import { AuthProvider } from '@aieng-auth/react';
+import { AuthProvider } from '@vector-institute/aieng-auth-react';
 
 const authConfig = {
   clientId: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
@@ -47,7 +47,7 @@ function App() {
 ### 3. Use Authentication
 
 ```tsx
-import { useAuth } from '@aieng-auth/react';
+import { useAuth } from '@vector-institute/aieng-auth-react';
 
 function MyComponent() {
   const { isAuthenticated, user, login, logout } = useAuth();
@@ -150,4 +150,69 @@ The Next.js demo uses server-side sessions with HTTP-only cookies for enhanced s
 pnpm install  # Install dependencies
 pnpm build    # Build all packages
 pnpm test     # Run tests
+```
+
+## Publishing
+
+This project uses [Changesets](https://github.com/changesets/changesets) for version management and publishing, with [npm Trusted Publishers](https://docs.npmjs.com/trusted-publishers) for secure authentication.
+
+### Setup (One-Time)
+
+Configure npm Trusted Publishers to allow GitHub Actions to publish without tokens:
+
+1. **Log in to npm**: Go to [npmjs.com](https://www.npmjs.com) and sign in
+
+2. **Navigate to Publishing Access**:
+   - For each package (`@vector-institute/aieng-auth-core` and `@vector-institute/aieng-auth-react`):
+     - Go to the package page (create if it doesn't exist yet)
+     - Click "Settings" → "Publishing Access"
+     - Or go directly to: `https://www.npmjs.com/package/@vector-institute/PACKAGE_NAME/access`
+
+3. **Add GitHub Actions as Trusted Publisher**:
+   - Click "Add Trusted Publisher"
+   - Select "GitHub Actions"
+   - Fill in:
+     - **Repository owner**: `VectorInstitute`
+     - **Repository name**: `aieng-auth`
+     - **Workflow name**: `publish.yml`
+     - **Environment name**: (leave empty)
+   - Click "Add"
+
+4. **Repeat for all packages**: Do steps 2-3 for both `@vector-institute/aieng-auth-core` and `@vector-institute/aieng-auth-react`
+
+**Note**: If packages don't exist yet on npm, you can either:
+- Create them manually first (recommended)
+- Or publish the first version using a temporary automation token, then configure trusted publishing
+
+### Release Workflow
+
+1. **Make your changes** and commit them to a branch
+
+2. **Create a changeset** describing your changes:
+   ```bash
+   pnpm changeset
+   ```
+   - Select the packages that changed (core, react, or both)
+   - Select the version bump type (major, minor, or patch)
+   - Provide a description of the changes
+
+3. **Commit the changeset** along with your code changes:
+   ```bash
+   git add .changeset
+   git commit -m "feat: your feature description"
+   ```
+
+4. **Create a pull request** - the changeset file will be included
+
+5. **Merge to main** - the publish workflow will:
+   - Create a "Version Packages" PR that updates versions and changelogs
+   - When you merge the "Version Packages" PR, packages are automatically published to npm
+
+### Manual Publishing (if needed)
+
+```bash
+pnpm build              # Build all packages
+pnpm changeset version  # Update versions and changelogs
+pnpm changeset publish  # Publish to npm
+git push --follow-tags  # Push version commits and tags
 ```

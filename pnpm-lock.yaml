@@ -23,7 +23,7 @@ importers:
 
   apps/demo-nextjs:
     dependencies:
-      '@aieng-auth/core':
+      '@vector-institute/aieng-auth-core':
         specifier: workspace:*
         version: link:../../packages/core
       iron-session:
@@ -60,10 +60,10 @@ importers:
 
   apps/demo-react:
     dependencies:
-      '@aieng-auth/core':
+      '@vector-institute/aieng-auth-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@aieng-auth/react':
+      '@vector-institute/aieng-auth-react':
         specifier: workspace:*
         version: link:../../packages/react
       react:
@@ -151,7 +151,7 @@ importers:
 
   packages/react:
     dependencies:
-      '@aieng-auth/core':
+      '@vector-institute/aieng-auth-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

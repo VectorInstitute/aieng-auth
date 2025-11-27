@@ -1,4 +1,4 @@
-import { useAuth } from '@aieng-auth/react';
+import { useAuth } from '@vector-institute/aieng-auth-react';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
@@ -34,14 +34,14 @@ export default function HomePage() {
           <div className="card">
             <h2>Welcome</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>
-              Add Google OAuth SSO using <code>@aieng-auth/react</code>
+              Add Google OAuth SSO using <code>@vector-institute/aieng-auth-react</code>
             </p>
 
             <div className="info-box">
               <strong>Quick Start:</strong>
               <ol style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
                 <li>
-                  Install: <code>pnpm add @aieng-auth/react</code>
+                  Install: <code>pnpm add @vector-institute/aieng-auth-react</code>
                 </li>
                 <li>
                   Wrap app with <code>&lt;AuthProvider&gt;</code>

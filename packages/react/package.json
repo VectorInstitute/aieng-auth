@@ -1,6 +1,6 @@
 {
-  "name": "@aieng-auth/react",
-  "version": "0.1.0",
+  "name": "@vector-institute/aieng-auth-react",
+  "version": "0.1.1",
   "description": "React hooks and components for Google OAuth authentication",
   "keywords": [
     "google",
@@ -9,8 +9,8 @@
     "hooks",
     "authentication"
   ],
-  "author": "Your Organization",
-  "license": "MIT",
+  "author": "Vector Institute",
+  "license": "Apache-2.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -38,7 +38,7 @@
     "clean": "rm -rf dist .turbo node_modules"
   },
   "dependencies": {
-    "@aieng-auth/core": "workspace:*"
+    "@vector-institute/aieng-auth-core": "workspace:*"
   },
   "devDependencies": {
     "@aieng-auth/eslint-config": "workspace:*",

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { GoogleOAuthClient } from '@aieng-auth/core';
+import { GoogleOAuthClient } from '@vector-institute/aieng-auth-core';
 import { authConfig } from '@/lib/auth-config';
 
 export async function GET() {
@@ -7,7 +7,7 @@ export async function GET() {
     const client = new GoogleOAuthClient(authConfig);
 
     // Generate PKCE and store in session
-    const pkce = await import('@aieng-auth/core').then((m) => m.generatePKCE());
+    const pkce = await import('@vector-institute/aieng-auth-core').then((m) => m.generatePKCE());
 
     // Build authorization URL
     const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
