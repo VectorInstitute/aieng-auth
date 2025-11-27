@@ -1,5 +1,15 @@
 # @vector-institute/aieng-auth
 
+[![Code Checks](https://github.com/VectorInstitute/aieng-auth/actions/workflows/code_checks.yml/badge.svg)](https://github.com/VectorInstitute/aieng-auth/actions/workflows/code_checks.yml)
+[![Unit Tests](https://github.com/VectorInstitute/aieng-auth/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/VectorInstitute/aieng-auth/actions/workflows/unit_tests.yml)
+[![Publish](https://github.com/VectorInstitute/aieng-auth/actions/workflows/publish.yml/badge.svg)](https://github.com/VectorInstitute/aieng-auth/actions/workflows/publish.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+[![npm version - core](https://img.shields.io/npm/v/@vector-institute/aieng-auth-core?label=core&color=cb3837)](https://www.npmjs.com/package/@vector-institute/aieng-auth-core)
+[![npm version - react](https://img.shields.io/npm/v/@vector-institute/aieng-auth-react?label=react&color=cb3837)](https://www.npmjs.com/package/@vector-institute/aieng-auth-react)
+[![npm downloads - core](https://img.shields.io/npm/dm/@vector-institute/aieng-auth-core?label=core%20downloads)](https://www.npmjs.com/package/@vector-institute/aieng-auth-core)
+[![npm downloads - react](https://img.shields.io/npm/dm/@vector-institute/aieng-auth-react?label=react%20downloads)](https://www.npmjs.com/package/@vector-institute/aieng-auth-react)
+
 Production-ready Google OAuth SSO for Vector internal web applications.
 
 ## Key Features
