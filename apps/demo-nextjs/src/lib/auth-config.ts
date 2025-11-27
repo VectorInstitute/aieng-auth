@@ -1,4 +1,4 @@
-import type { AuthConfig } from '@aieng-auth/core';
+import type { AuthConfig } from '@vector-institute/aieng-auth-core';
 
 // Allow builds in CI/build environments with placeholder values
 // Only enforce required environment variables at actual runtime

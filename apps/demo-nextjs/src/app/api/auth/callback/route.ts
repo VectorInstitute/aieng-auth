@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleOAuthClient } from '@aieng-auth/core';
+import { GoogleOAuthClient } from '@vector-institute/aieng-auth-core';
 import { authConfig } from '@/lib/auth-config';
 import { createSession } from '@/lib/session';
 import { cookies } from 'next/headers';

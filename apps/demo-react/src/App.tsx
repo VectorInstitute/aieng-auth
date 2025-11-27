@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '@aieng-auth/react';
+import { AuthProvider } from '@vector-institute/aieng-auth-react';
 import HomePage from './pages/home-page';
 import DashboardPage from './pages/dashboard-page';
 import CallbackPage from './pages/callback-page';

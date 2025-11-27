@@ -1,4 +1,4 @@
-import type { AuthConfig, AuthTokens, User } from '@aieng-auth/core';
+import type { AuthConfig, AuthTokens, User } from '@vector-institute/aieng-auth-core';
 
 /**
  * Authentication state

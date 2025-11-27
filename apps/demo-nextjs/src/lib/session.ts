@@ -1,6 +1,6 @@
 import { getIronSession, IronSession } from 'iron-session';
 import { cookies } from 'next/headers';
-import type { AuthTokens, User } from '@aieng-auth/core';
+import type { AuthTokens, User } from '@vector-institute/aieng-auth-core';
 
 export interface SessionData {
   tokens: AuthTokens | null;

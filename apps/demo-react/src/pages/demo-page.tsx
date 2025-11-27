@@ -10,7 +10,7 @@ import {
   decodeToken,
   type PKCEChallenge,
   type AuthTokens,
-} from '@aieng-auth/core';
+} from '@vector-institute/aieng-auth-core';
 
 export default function DemoPage() {
   const [pkce, setPkce] = useState<PKCEChallenge | null>(null);

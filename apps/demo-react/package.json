@@ -1,7 +1,7 @@
 {
   "name": "demo-react",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,8 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@aieng-auth/core": "workspace:*",
-    "@aieng-auth/react": "workspace:*",
+    "@vector-institute/aieng-auth-core": "workspace:*",
+    "@vector-institute/aieng-auth-react": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0"

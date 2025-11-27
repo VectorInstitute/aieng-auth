@@ -1,6 +1,6 @@
 {
   "name": "demo-nextjs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@aieng-auth/core": "workspace:*",
+    "@vector-institute/aieng-auth-core": "workspace:*",
     "iron-session": "^8.0.1",
     "next": "14.1.0",
     "react": "^18.2.0",

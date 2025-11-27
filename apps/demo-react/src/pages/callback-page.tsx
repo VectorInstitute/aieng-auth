@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@aieng-auth/react';
+import { useAuth } from '@vector-institute/aieng-auth-react';
 
 export default function CallbackPage() {
   const navigate = useNavigate();

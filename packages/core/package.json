@@ -1,6 +1,6 @@
 {
-  "name": "@aieng-auth/core",
-  "version": "0.1.0",
+  "name": "@vector-institute/aieng-auth-core",
+  "version": "0.1.1",
   "description": "Framework-agnostic Google OAuth authentication core library",
   "keywords": [
     "google",
@@ -9,8 +9,8 @@
     "pkce",
     "security"
   ],
-  "author": "Your Organization",
-  "license": "MIT",
+  "author": "Vector Institute",
+  "license": "Apache-2.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

@@ -1,4 +1,4 @@
-import { useAuth } from '@aieng-auth/react';
+import { useAuth } from '@vector-institute/aieng-auth-react';
 import { Link, Navigate } from 'react-router-dom';
 
 export default function DashboardPage() {
