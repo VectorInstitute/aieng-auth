@@ -158,6 +158,40 @@ describe('Token Storage', () => {
 
       expect(retrieved).toEqual(expect.objectContaining(mockTokens));
     });
+
+    it('should throw error when setTokens fails', async () => {
+      // Mock sessionStorage.setItem to throw
+      const originalSetItem = sessionStorage.setItem;
+      sessionStorage.setItem = jest.fn(() => {
+        throw new Error('Storage full');
+      });
+
+      try {
+        await storage.setTokens(mockTokens);
+        fail('Expected setTokens to throw');
+      } catch (error: any) {
+        expect(error.message).toContain('Failed to store tokens');
+      } finally {
+        sessionStorage.setItem = originalSetItem;
+      }
+    });
+
+    it('should throw error when clearTokens fails', async () => {
+      // Mock sessionStorage.removeItem to throw
+      const originalRemoveItem = sessionStorage.removeItem;
+      sessionStorage.removeItem = jest.fn(() => {
+        throw new Error('Storage error');
+      });
+
+      try {
+        await storage.clearTokens();
+        fail('Expected clearTokens to throw');
+      } catch (error: any) {
+        expect(error.message).toContain('Failed to clear tokens');
+      } finally {
+        sessionStorage.removeItem = originalRemoveItem;
+      }
+    });
   });
 
   describe('LocalStorageAdapter', () => {
@@ -233,6 +267,40 @@ describe('Token Storage', () => {
       const retrieved = await storage.getTokens();
 
       expect(retrieved).toEqual(expect.objectContaining(mockTokens));
+    });
+
+    it('should throw error when setTokens fails', async () => {
+      // Mock localStorage.setItem to throw
+      const originalSetItem = localStorage.setItem;
+      localStorage.setItem = jest.fn(() => {
+        throw new Error('Storage full');
+      });
+
+      try {
+        await storage.setTokens(mockTokens);
+        fail('Expected setTokens to throw');
+      } catch (error: any) {
+        expect(error.message).toContain('Failed to store tokens');
+      } finally {
+        localStorage.setItem = originalSetItem;
+      }
+    });
+
+    it('should throw error when clearTokens fails', async () => {
+      // Mock localStorage.removeItem to throw
+      const originalRemoveItem = localStorage.removeItem;
+      localStorage.removeItem = jest.fn(() => {
+        throw new Error('Storage error');
+      });
+
+      try {
+        await storage.clearTokens();
+        fail('Expected clearTokens to throw');
+      } catch (error: any) {
+        expect(error.message).toContain('Failed to clear tokens');
+      } finally {
+        localStorage.removeItem = originalRemoveItem;
+      }
     });
   });
 
