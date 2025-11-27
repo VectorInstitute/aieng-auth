@@ -1,0 +1,16 @@
+[project]
+name = "aieng-auth"
+version = "0.1.0"
+description = "Google OAuth authentication module for web applications"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    {name = "Vector AI Engineering", email = "ai_engineering@vectorinstitute.ai"}
+]
+license = {text = "MIT"}
+repository = "https://github.com/VectorInstitute/aieng-auth"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=3.0.0",
+]

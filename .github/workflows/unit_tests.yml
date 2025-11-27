@@ -1,0 +1,66 @@
+name: unit tests
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/unit_tests.yml
+      - .github/workflows/code_checks.yml
+      - '**.ts'
+      - '**.tsx'
+      - '**.js'
+      - '**.jsx'
+      - pnpm-lock.yaml
+      - package.json
+      - 'packages/*/package.json'
+      - tsconfig*.json
+      - 'packages/*/tests/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/unit_tests.yml
+      - .github/workflows/code_checks.yml
+      - '**.ts'
+      - '**.tsx'
+      - '**.js'
+      - '**.jsx'
+      - pnpm-lock.yaml
+      - package.json
+      - 'packages/*/package.json'
+      - tsconfig*.json
+      - 'packages/*/tests/**'
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests with coverage
+        run: pnpm run test -- --coverage
+
+      # Uncomment this once the repo is configured on Codecov
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v4
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     slug: VectorInstitute/aieng-auth
+      #     fail_ci_if_error: true
+      #     verbose: true

@@ -1,0 +1,67 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: fix-byte-order-marker
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: detect-private-key
+      - id: check-yaml
+        args: [--unsafe]
+      - id: check-toml
+      - id: check-json
+        exclude: '(tsconfig\.json|\.vscode/.*\.json)'
+      - id: check-case-conflict
+      - id: check-added-large-files
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [javascript, jsx, ts, tsx, json, markdown, yaml]
+        exclude: 'pnpm-lock\.yaml|node_modules/|\.next/|dist/|build/'
+
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.28.3
+    hooks:
+      - id: typos
+        args: []
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: pnpm run lint
+        language: system
+        types_or: [javascript, jsx, ts, tsx]
+        pass_filenames: false
+
+      - id: type-check
+        name: type-check
+        entry: pnpm run type-check
+        language: system
+        types_or: [ts, tsx]
+        pass_filenames: false
+
+      - id: test
+        name: test
+        entry: pnpm run test
+        language: system
+        pass_filenames: false
+        always_run: true
+
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] Add auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: [eslint, type-check, test]
+  submodules: false

@@ -1,0 +1,71 @@
+name: code checks
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .pre-commit-config.yaml
+      - .github/workflows/code_checks.yml
+      - '**.ts'
+      - '**.tsx'
+      - '**.js'
+      - '**.jsx'
+      - pnpm-lock.yaml
+      - package.json
+      - 'packages/*/package.json'
+      - tsconfig*.json
+      - '.eslintrc*'
+      - '.prettierrc*'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .pre-commit-config.yaml
+      - .github/workflows/code_checks.yml
+      - '**.ts'
+      - '**.tsx'
+      - '**.js'
+      - '**.jsx'
+      - pnpm-lock.yaml
+      - package.json
+      - 'packages/*/package.json'
+      - tsconfig*.json
+      - '.eslintrc*'
+      - '.prettierrc*'
+
+jobs:
+  run-code-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup Python for pre-commit
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit checks
+        run: pre-commit run --all-files
+
+      - name: Run npm audit
+        run: pnpm audit --prod
+        continue-on-error: true
