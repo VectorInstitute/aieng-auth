@@ -17,7 +17,7 @@ open "https://console.cloud.google.com/apis/credentials?project=coderd"
 2. Select **"Internal"** (for @vectorinstitute.ai users only)
    - This restricts access to your Google Workspace organization
 3. Fill in required fields:
-   - **App name**: `AIEng Auth Demo`
+   - **App name**: `aieng-auth demo`
    - **User support email**: Your email
    - **Developer contact**: Your email
 4. Click **"Save and Continue"**
@@ -33,7 +33,7 @@ open "https://console.cloud.google.com/apis/credentials/oauthclient?project=code
 ```
 
 1. **Application type**: Select **"Web application"**
-2. **Name**: `AIEng Auth Demo`
+2. **Name**: `aieng-auth demo`
 3. **Authorized JavaScript origins**:
    - Add: `http://localhost:3000`
 4. **Authorized redirect URIs**:

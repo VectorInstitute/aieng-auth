@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,11 +7,10 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #EB088A 0%, #313CFF 100%);
   min-height: 100vh;
 }
 
@@ -64,28 +65,31 @@ body {
 }
 
 .button {
-  background: #667eea;
+  background: #EB088A;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
   margin-right: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .button:hover {
-  background: #5568d3;
+  background: #d10779;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(235, 8, 138, 0.3);
 }
 
 .button.secondary {
-  background: #764ba2;
+  background: #000000;
 }
 
 .button.secondary:hover {
-  background: #653c8a;
+  background: #333333;
 }
 
 .button.danger {
@@ -166,8 +170,9 @@ body {
 }
 
 .feature-card h3 {
-  color: #667eea;
+  color: #EB088A;
   margin-bottom: 0.75rem;
+  font-weight: 600;
 }
 
 .feature-card p {
