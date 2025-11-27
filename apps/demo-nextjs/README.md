@@ -13,11 +13,13 @@ Server-side OAuth authentication with Next.js App Router.
 ## Setup
 
 1. **Copy environment variables:**
+
    ```bash
    cp .env.example .env
    ```
 
 2. **Update `.env` with your Google OAuth credentials:**
+
    ```env
    NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
    GOOGLE_CLIENT_SECRET=GOCSPX-your-client-secret
@@ -25,6 +27,7 @@ Server-side OAuth authentication with Next.js App Router.
    ```
 
 3. **Generate a session secret:**
+
    ```bash
    openssl rand -base64 32
    ```
@@ -68,13 +71,13 @@ Unlike the React SPA demo, this uses server-side sessions:
 
 ### Benefits vs Client-Side
 
-| Feature | React SPA | Next.js SSR |
-|---------|-----------|-------------|
-| Token Storage | Browser (memory/localStorage) | Server (encrypted session) |
-| XSS Protection | Memory storage only | HTTP-only cookies |
-| Token Refresh | Client-side | Server-side |
-| SEO | Limited | Full SSR |
-| Initial Load | Auth check required | Server renders with auth |
+| Feature        | React SPA                     | Next.js SSR                |
+| -------------- | ----------------------------- | -------------------------- |
+| Token Storage  | Browser (memory/localStorage) | Server (encrypted session) |
+| XSS Protection | Memory storage only           | HTTP-only cookies          |
+| Token Refresh  | Client-side                   | Server-side                |
+| SEO            | Limited                       | Full SSR                   |
+| Initial Load   | Auth check required           | Server renders with auth   |
 
 ## API Routes
 

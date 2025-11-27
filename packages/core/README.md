@@ -109,11 +109,7 @@ await manager.clearTokens();
 ### Token Validation
 
 ```typescript
-import {
-  decodeToken,
-  isTokenExpired,
-  validateToken,
-} from '@cyberark-auth/core';
+import { decodeToken, isTokenExpired, validateToken } from '@cyberark-auth/core';
 
 // Decode JWT
 const decoded = decodeToken(accessToken);

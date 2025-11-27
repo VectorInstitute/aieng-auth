@@ -17,16 +17,18 @@ const STORAGE_KEY = 'cyberark_auth_tokens';
 export class MemoryTokenStorage implements TokenStorage {
   private tokens: AuthTokens | null = null;
 
-  async setTokens(tokens: AuthTokens): Promise<void> {
+  setTokens(tokens: AuthTokens): Promise<void> {
     this.tokens = { ...tokens, issuedAt: Date.now() };
+    return Promise.resolve();
   }
 
-  async getTokens(): Promise<AuthTokens | null> {
-    return this.tokens ? { ...this.tokens } : null;
+  getTokens(): Promise<AuthTokens | null> {
+    return Promise.resolve(this.tokens ? { ...this.tokens } : null);
   }
 
-  async clearTokens(): Promise<void> {
+  clearTokens(): Promise<void> {
     this.tokens = null;
+    return Promise.resolve();
   }
 }
 
@@ -51,17 +53,16 @@ export class SessionStorageAdapter implements TokenStorage {
 
   private validateStorageAvailable(): void {
     if (typeof window === 'undefined' || !window.sessionStorage) {
-      throw createAuthError.storageError(
-        'SessionStorage is not available in this environment'
-      );
+      throw createAuthError.storageError('SessionStorage is not available in this environment');
     }
   }
 
-  async setTokens(tokens: AuthTokens): Promise<void> {
+  setTokens(tokens: AuthTokens): Promise<void> {
     try {
       const tokensWithTimestamp = { ...tokens, issuedAt: Date.now() };
       const serialized = JSON.stringify(tokensWithTimestamp);
       sessionStorage.setItem(this.storageKey, serialized);
+      return Promise.resolve();
     } catch (error) {
       throw createAuthError.storageError(
         'Failed to store tokens in sessionStorage',
@@ -85,9 +86,10 @@ export class SessionStorageAdapter implements TokenStorage {
     }
   }
 
-  async clearTokens(): Promise<void> {
+  clearTokens(): Promise<void> {
     try {
       sessionStorage.removeItem(this.storageKey);
+      return Promise.resolve();
     } catch (error) {
       throw createAuthError.storageError(
         'Failed to clear tokens from sessionStorage',
@@ -119,17 +121,16 @@ export class LocalStorageAdapter implements TokenStorage {
 
   private validateStorageAvailable(): void {
     if (typeof window === 'undefined' || !window.localStorage) {
-      throw createAuthError.storageError(
-        'LocalStorage is not available in this environment'
-      );
+      throw createAuthError.storageError('LocalStorage is not available in this environment');
     }
   }
 
-  async setTokens(tokens: AuthTokens): Promise<void> {
+  setTokens(tokens: AuthTokens): Promise<void> {
     try {
       const tokensWithTimestamp = { ...tokens, issuedAt: Date.now() };
       const serialized = JSON.stringify(tokensWithTimestamp);
       localStorage.setItem(this.storageKey, serialized);
+      return Promise.resolve();
     } catch (error) {
       throw createAuthError.storageError(
         'Failed to store tokens in localStorage',
@@ -153,9 +154,10 @@ export class LocalStorageAdapter implements TokenStorage {
     }
   }
 
-  async clearTokens(): Promise<void> {
+  clearTokens(): Promise<void> {
     try {
       localStorage.removeItem(this.storageKey);
+      return Promise.resolve();
     } catch (error) {
       throw createAuthError.storageError(
         'Failed to clear tokens from localStorage',

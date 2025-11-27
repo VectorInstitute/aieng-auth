@@ -28,10 +28,7 @@ export function decodeToken(token: string): DecodedToken {
 
     return decoded;
   } catch (error) {
-    throw createAuthError.invalidToken(
-      'Failed to decode JWT token',
-      error
-    );
+    throw createAuthError.invalidToken('Failed to decode JWT token', error);
   }
 }
 
@@ -42,10 +39,7 @@ export function decodeToken(token: string): DecodedToken {
  * @param bufferSeconds Buffer time in seconds (tokens expiring within buffer are considered expired)
  * @returns True if token is expired or expiring soon
  */
-export function isTokenExpired(
-  token: string | DecodedToken,
-  bufferSeconds: number = 0
-): boolean {
+export function isTokenExpired(token: string | DecodedToken, bufferSeconds: number = 0): boolean {
   try {
     const decoded = typeof token === 'string' ? decodeToken(token) : token;
 

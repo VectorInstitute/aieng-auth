@@ -3,7 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "description": "Google OAuth authentication module for web applications",
-  "keywords": ["google", "oauth", "authentication", "pkce", "react", "aieng"],
+  "keywords": [
+    "google",
+    "oauth",
+    "authentication",
+    "pkce",
+    "react",
+    "aieng"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/your-org/aieng-template-auth.git"

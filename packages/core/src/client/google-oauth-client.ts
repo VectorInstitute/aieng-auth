@@ -14,6 +14,39 @@ const GOOGLE_REVOKE_ENDPOINT = 'https://oauth2.googleapis.com/revoke';
 const GOOGLE_USERINFO_ENDPOINT = 'https://www.googleapis.com/oauth2/v2/userinfo';
 
 /**
+ * Google OAuth token response
+ */
+interface GoogleTokenResponse {
+  access_token: string;
+  refresh_token?: string;
+  token_type?: string;
+  expires_in: number;
+  scope?: string;
+}
+
+/**
+ * Google OAuth error response
+ */
+interface GoogleErrorResponse {
+  error?: string;
+  error_description?: string;
+}
+
+/**
+ * Google user info response
+ */
+interface GoogleUserInfoResponse {
+  id: string;
+  email: string;
+  name?: string;
+  given_name?: string;
+  family_name?: string;
+  picture?: string;
+  verified_email?: boolean;
+  locale?: string;
+}
+
+/**
  * Google OAuth client for handling authentication flow
  */
 export class GoogleOAuthClient {
@@ -66,10 +99,7 @@ export class GoogleOAuthClient {
 
     // Check for authorization errors
     if (error) {
-      throw new AuthError(
-        AuthErrorCode.AUTH_FAILED,
-        `Google authorization failed: ${error}`
-      );
+      throw new AuthError(AuthErrorCode.AUTH_FAILED, `Google authorization failed: ${error}`);
     }
 
     // Validate state
@@ -126,14 +156,14 @@ export class GoogleOAuthClient {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorData = (await response.json().catch(() => ({}))) as GoogleErrorResponse;
       throw new AuthError(
         AuthErrorCode.AUTH_FAILED,
         errorData.error_description || `Token request failed: ${response.statusText}`
       );
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as GoogleTokenResponse;
 
     return {
       accessToken: data.access_token,
@@ -168,14 +198,14 @@ export class GoogleOAuthClient {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorData = (await response.json().catch(() => ({}))) as GoogleErrorResponse;
       throw new AuthError(
         AuthErrorCode.TOKEN_REFRESH_FAILED,
         errorData.error_description || `Token refresh failed: ${response.statusText}`
       );
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as GoogleTokenResponse;
 
     return {
       accessToken: data.access_token,
@@ -203,7 +233,7 @@ export class GoogleOAuthClient {
       );
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as GoogleUserInfoResponse;
 
     return {
       sub: data.id, // Google uses 'id' but OpenID standard uses 'sub'

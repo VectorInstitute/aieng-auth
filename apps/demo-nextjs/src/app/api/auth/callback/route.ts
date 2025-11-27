@@ -12,32 +12,24 @@ export async function GET(request: NextRequest) {
     const error = searchParams.get('error');
 
     if (error) {
-      return NextResponse.redirect(
-        new URL(`/?error=${encodeURIComponent(error)}`, request.url)
-      );
+      return NextResponse.redirect(new URL(`/?error=${encodeURIComponent(error)}`, request.url));
     }
 
     if (!code || !state) {
-      return NextResponse.redirect(
-        new URL('/?error=invalid_callback', request.url)
-      );
+      return NextResponse.redirect(new URL('/?error=invalid_callback', request.url));
     }
 
     // Verify state
     const cookieStore = await cookies();
     const storedState = cookieStore.get('oauth_state')?.value;
     if (state !== storedState) {
-      return NextResponse.redirect(
-        new URL('/?error=invalid_state', request.url)
-      );
+      return NextResponse.redirect(new URL('/?error=invalid_state', request.url));
     }
 
     // Get PKCE verifier
     const verifier = cookieStore.get('pkce_verifier')?.value;
     if (!verifier) {
-      return NextResponse.redirect(
-        new URL('/?error=missing_verifier', request.url)
-      );
+      return NextResponse.redirect(new URL('/?error=missing_verifier', request.url));
     }
 
     // Exchange code for tokens
@@ -61,9 +53,7 @@ export async function GET(request: NextRequest) {
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.error('Token exchange failed:', errorData);
-      return NextResponse.redirect(
-        new URL('/?error=token_exchange_failed', request.url)
-      );
+      return NextResponse.redirect(new URL('/?error=token_exchange_failed', request.url));
     }
 
     const data = await response.json();
@@ -99,8 +89,6 @@ export async function GET(request: NextRequest) {
     return redirectResponse;
   } catch (error) {
     console.error('Callback error:', error);
-    return NextResponse.redirect(
-      new URL('/?error=authentication_failed', request.url)
-    );
+    return NextResponse.redirect(new URL('/?error=authentication_failed', request.url));
   }
 }

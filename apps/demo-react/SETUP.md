@@ -36,6 +36,7 @@ cp .env.example .env
 ```
 
 Edit `.env` and add your values:
+
 ```env
 VITE_GOOGLE_CLIENT_ID=your-client-id-here.apps.googleusercontent.com
 VITE_GOOGLE_CLIENT_SECRET=GOCSPX-your-client-secret-here
@@ -54,11 +55,13 @@ Open http://localhost:3000
 ## Current Demo Features
 
 **Without Google setup:**
+
 - ✅ PKCE generation
 - ✅ Token storage testing
 - ✅ Mock token validation
 
 **With Google setup (coming soon):**
+
 - Login/logout flow
 - Real Google OAuth tokens
 - Protected routes
@@ -87,6 +90,7 @@ To restrict access to specific email domains (e.g., @vectorinstitute.ai):
    - Reject users with unauthorized domains
 
 Example validation:
+
 ```typescript
 const allowedDomains = ['vectorinstitute.ai'];
 const email = user.email;

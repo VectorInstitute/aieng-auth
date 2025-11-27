@@ -29,7 +29,8 @@ export default async function DashboardPage() {
       <div className="card">
         <h2>Welcome, {user?.name}!</h2>
         <p style={{ color: '#666', marginBottom: '1.5rem' }}>
-          This page is protected by server-side middleware. You can only see it because you're authenticated.
+          This page is protected by server-side middleware. You can only see it because you&apos;re
+          authenticated.
         </p>
 
         <div className="status success">✅ Server-Side Authentication Active</div>

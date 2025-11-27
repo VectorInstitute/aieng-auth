@@ -115,41 +115,62 @@ export function AuthProvider({
   const tokenManagerRef = useRef<TokenManager>();
   const refreshTimerRef = useRef<NodeJS.Timeout>();
 
-  // Initialize client and token manager
-  useEffect(() => {
-    const storage = config.tokenStorage || new MemoryTokenStorage();
-    tokenManagerRef.current = new TokenManager(storage);
-    clientRef.current = new GoogleOAuthClient(config);
+  /**
+   * Refresh tokens
+   */
+  const refreshTokens = useCallback(async () => {
+    if (!state.tokens?.refreshToken || !clientRef.current || !tokenManagerRef.current) {
+      return;
+    }
 
-    // Check for existing session
-    const initAuth = async () => {
-      try {
-        const tokens = await tokenManagerRef.current!.getTokens();
-        if (tokens?.accessToken) {
-          const user = await clientRef.current!.getUserInfo(tokens.accessToken);
-          dispatch({ type: 'LOGIN_SUCCESS', payload: { tokens, user } });
+    dispatch({ type: 'REFRESH_START' });
 
-          // Setup auto-refresh if enabled
-          if (autoRefresh) {
-            setupTokenRefresh(tokens);
-          }
-        } else {
-          dispatch({ type: 'SET_LOADING', payload: false });
+    try {
+      const newTokens = await clientRef.current.refreshTokens(state.tokens.refreshToken);
+      await tokenManagerRef.current.setTokens(newTokens);
+
+      dispatch({ type: 'REFRESH_SUCCESS', payload: newTokens });
+
+      // Setup next refresh if autoRefresh is enabled
+      // Note: We can't call setupTokenRefresh here as it would create a circular dependency
+      // The setupTokenRefresh will be set up when needed in the callback
+      if (autoRefresh && newTokens.refreshToken) {
+        // Clear existing timer
+        if (refreshTimerRef.current) {
+          clearTimeout(refreshTimerRef.current);
         }
-      } catch (error) {
-        console.error('Auth initialization error:', error);
-        dispatch({ type: 'SET_LOADING', payload: false });
+
+        const timeUntilExpiry = getTimeUntilExpiration(newTokens.accessToken);
+        const refreshTime = Math.max(0, timeUntilExpiry - refreshBufferSeconds) * 1000;
+
+        refreshTimerRef.current = setTimeout(() => {
+          void refreshTokens();
+        }, refreshTime);
       }
-    };
+    } catch (error) {
+      const err = error instanceof Error ? error : new Error('Token refresh failed');
+      dispatch({ type: 'REFRESH_ERROR', payload: err });
 
-    initAuth();
-
-    return () => {
+      // On refresh error, logout user
       if (refreshTimerRef.current) {
         clearTimeout(refreshTimerRef.current);
       }
-    };
-  }, [config, autoRefresh]);
+
+      // Revoke token and clear storage
+      if (state.tokens?.accessToken && clientRef.current) {
+        await clientRef.current.revokeToken(state.tokens.accessToken);
+      }
+      if (tokenManagerRef.current) {
+        await tokenManagerRef.current.clearTokens();
+      }
+
+      dispatch({ type: 'LOGOUT' });
+
+      if (onLogout) {
+        await onLogout();
+      }
+    }
+  }, [state.tokens, onLogout, autoRefresh, refreshBufferSeconds]);
 
   /**
    * Setup automatic token refresh
@@ -167,11 +188,52 @@ export function AuthProvider({
       const refreshTime = Math.max(0, timeUntilExpiry - refreshBufferSeconds) * 1000;
 
       refreshTimerRef.current = setTimeout(() => {
-        refreshTokens();
+        void refreshTokens();
       }, refreshTime);
     },
-    [autoRefresh, refreshBufferSeconds]
+    [autoRefresh, refreshBufferSeconds, refreshTokens]
   );
+
+  // Initialize client and token manager
+  useEffect(() => {
+    const storage = config.tokenStorage || new MemoryTokenStorage();
+    tokenManagerRef.current = new TokenManager(storage);
+    clientRef.current = new GoogleOAuthClient(config);
+
+    // Check for existing session
+    const initAuth = async () => {
+      try {
+        if (!tokenManagerRef.current || !clientRef.current) {
+          dispatch({ type: 'SET_LOADING', payload: false });
+          return;
+        }
+
+        const tokens = await tokenManagerRef.current.getTokens();
+        if (tokens?.accessToken) {
+          const user = await clientRef.current.getUserInfo(tokens.accessToken);
+          dispatch({ type: 'LOGIN_SUCCESS', payload: { tokens, user } });
+
+          // Setup auto-refresh if enabled
+          if (autoRefresh) {
+            setupTokenRefresh(tokens);
+          }
+        } else {
+          dispatch({ type: 'SET_LOADING', payload: false });
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+        dispatch({ type: 'SET_LOADING', payload: false });
+      }
+    };
+
+    void initAuth();
+
+    return () => {
+      if (refreshTimerRef.current) {
+        clearTimeout(refreshTimerRef.current);
+      }
+    };
+  }, [config, autoRefresh, setupTokenRefresh]);
 
   /**
    * Handle OAuth callback
@@ -183,13 +245,17 @@ export function AuthProvider({
         return;
       }
 
+      if (!clientRef.current || !tokenManagerRef.current) {
+        return;
+      }
+
       dispatch({ type: 'LOGIN_START' });
 
       try {
-        const tokens = await clientRef.current!.handleCallback(window.location.href);
-        await tokenManagerRef.current!.setTokens(tokens);
+        const tokens = await clientRef.current.handleCallback(window.location.href);
+        await tokenManagerRef.current.setTokens(tokens);
 
-        const user = await clientRef.current!.getUserInfo(tokens.accessToken);
+        const user = await clientRef.current.getUserInfo(tokens.accessToken);
 
         dispatch({ type: 'LOGIN_SUCCESS', payload: { tokens, user } });
 
@@ -213,15 +279,21 @@ export function AuthProvider({
       }
     };
 
-    handleCallback();
+    void handleCallback();
   }, [autoRefresh, onLoginSuccess, onLoginError, setupTokenRefresh]);
 
   /**
    * Login - redirects to Google OAuth
    */
   const login = useCallback(async () => {
+    if (!clientRef.current) {
+      const err = new Error('Client not initialized');
+      dispatch({ type: 'LOGIN_ERROR', payload: err });
+      return;
+    }
+
     try {
-      await clientRef.current!.login();
+      await clientRef.current.login();
     } catch (error) {
       const err = error instanceof Error ? error : new Error('Login failed');
       dispatch({ type: 'LOGIN_ERROR', payload: err });
@@ -242,10 +314,12 @@ export function AuthProvider({
       }
 
       // Revoke token and clear storage
-      if (state.tokens?.accessToken) {
-        await clientRef.current!.revokeToken(state.tokens.accessToken);
+      if (state.tokens?.accessToken && clientRef.current) {
+        await clientRef.current.revokeToken(state.tokens.accessToken);
       }
-      await tokenManagerRef.current!.clearTokens();
+      if (tokenManagerRef.current) {
+        await tokenManagerRef.current.clearTokens();
+      }
 
       dispatch({ type: 'LOGOUT' });
 
@@ -258,35 +332,6 @@ export function AuthProvider({
       dispatch({ type: 'LOGOUT' });
     }
   }, [state.tokens, onLogout]);
-
-  /**
-   * Refresh tokens
-   */
-  const refreshTokens = useCallback(async () => {
-    if (!state.tokens?.refreshToken) {
-      return;
-    }
-
-    dispatch({ type: 'REFRESH_START' });
-
-    try {
-      const newTokens = await clientRef.current!.refreshTokens(state.tokens.refreshToken);
-      await tokenManagerRef.current!.setTokens(newTokens);
-
-      dispatch({ type: 'REFRESH_SUCCESS', payload: newTokens });
-
-      // Setup next refresh
-      if (autoRefresh) {
-        setupTokenRefresh(newTokens);
-      }
-    } catch (error) {
-      const err = error instanceof Error ? error : new Error('Token refresh failed');
-      dispatch({ type: 'REFRESH_ERROR', payload: err });
-
-      // On refresh error, logout user
-      await logout();
-    }
-  }, [state.tokens, autoRefresh, setupTokenRefresh, logout]);
 
   const value = {
     ...state,

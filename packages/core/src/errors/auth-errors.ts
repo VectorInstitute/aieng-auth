@@ -58,12 +58,7 @@ export class AuthError extends Error {
    */
   public readonly cause?: Error;
 
-  constructor(
-    code: AuthErrorCode,
-    message: string,
-    details?: unknown,
-    cause?: Error
-  ) {
+  constructor(code: AuthErrorCode, message: string, details?: unknown, cause?: Error) {
     super(message);
     this.name = 'AuthError';
     this.code = code;
@@ -140,8 +135,7 @@ export const createAuthError = {
   storageError: (message: string, cause?: Error) =>
     new AuthError(AuthErrorCode.STORAGE_ERROR, message, undefined, cause),
 
-  invalidState: (message: string) =>
-    new AuthError(AuthErrorCode.INVALID_STATE, message),
+  invalidState: (message: string) => new AuthError(AuthErrorCode.INVALID_STATE, message),
 
   callbackError: (message: string, details?: unknown) =>
     new AuthError(AuthErrorCode.CALLBACK_ERROR, message, details),

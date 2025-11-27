@@ -2,7 +2,13 @@
   "name": "@aieng-auth/react",
   "version": "0.1.0",
   "description": "React hooks and components for Google OAuth authentication",
-  "keywords": ["google", "oauth", "react", "hooks", "authentication"],
+  "keywords": [
+    "google",
+    "oauth",
+    "react",
+    "hooks",
+    "authentication"
+  ],
   "author": "Your Organization",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -15,7 +21,10 @@
       "require": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",

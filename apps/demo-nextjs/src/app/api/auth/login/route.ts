@@ -7,7 +7,7 @@ export async function GET() {
     const client = new GoogleOAuthClient(authConfig);
 
     // Generate PKCE and store in session
-    const pkce = await import('@aieng-auth/core').then(m => m.generatePKCE());
+    const pkce = await import('@aieng-auth/core').then((m) => m.generatePKCE());
 
     // Build authorization URL
     const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
@@ -41,9 +41,6 @@ export async function GET() {
     return response;
   } catch (error) {
     console.error('Login error:', error);
-    return NextResponse.json(
-      { error: 'Failed to initiate login' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to initiate login' }, { status: 500 });
   }
 }

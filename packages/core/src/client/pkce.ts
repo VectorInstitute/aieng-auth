@@ -36,10 +36,7 @@ export function base64UrlEncode(buffer: ArrayBuffer | Uint8Array): string {
   }
 
   // Make URL-safe
-  return base64
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
 /**
@@ -85,10 +82,7 @@ export async function generatePKCE(): Promise<PKCEChallenge> {
       method: 'S256',
     };
   } catch (error) {
-    throw createAuthError.pkceError(
-      'Failed to generate PKCE challenge',
-      error
-    );
+    throw createAuthError.pkceError('Failed to generate PKCE challenge', error);
   }
 }
 
@@ -100,10 +94,7 @@ export async function generatePKCE(): Promise<PKCEChallenge> {
  * @param challenge The code challenge to verify against
  * @returns Promise resolving to true if valid, false otherwise
  */
-export async function verifyPKCE(
-  verifier: string,
-  challenge: string
-): Promise<boolean> {
+export async function verifyPKCE(verifier: string, challenge: string): Promise<boolean> {
   try {
     const challengeBuffer = await sha256(verifier);
     const computedChallenge = base64UrlEncode(challengeBuffer);

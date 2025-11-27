@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getSession } from '@/lib/session';
 import { LoginButton } from '@/components/login-button';
 import { LogoutButton } from '@/components/logout-button';
@@ -20,7 +21,8 @@ export default async function HomePage() {
           <div className="card">
             <h2>Welcome!</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>
-              This demo shows server-side OAuth with Next.js App Router. Unlike the React SPA, tokens are stored securely in HTTP-only cookies.
+              This demo shows server-side OAuth with Next.js App Router. Unlike the React SPA,
+              tokens are stored securely in HTTP-only cookies.
             </p>
 
             <div className="info-box">
@@ -39,9 +41,7 @@ export default async function HomePage() {
           <div className="grid">
             <div className="feature-card">
               <h3>🔒 More Secure</h3>
-              <p>
-                Tokens never touch the browser. Stored in HTTP-only cookies on the server.
-              </p>
+              <p>Tokens never touch the browser. Stored in HTTP-only cookies on the server.</p>
             </div>
 
             <div className="feature-card">
@@ -53,9 +53,7 @@ export default async function HomePage() {
 
             <div className="feature-card">
               <h3>🎯 Production Ready</h3>
-              <p>
-                Built for production with session management and automatic token refresh.
-              </p>
+              <p>Built for production with session management and automatic token refresh.</p>
             </div>
           </div>
         </>
@@ -64,17 +62,17 @@ export default async function HomePage() {
           <div className="card">
             <h2>✅ Authenticated</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>
-              You're signed in with server-side session management!
+              You&apos;re signed in with server-side session management!
             </p>
 
             <div className="user-info">
               {user?.picture && (
-                <img
+                <Image
                   src={user.picture}
-                  alt={user.name}
+                  alt={user.name || 'User'}
+                  width={64}
+                  height={64}
                   style={{
-                    width: '64px',
-                    height: '64px',
                     borderRadius: '50%',
                     marginBottom: '1rem',
                   }}
@@ -104,9 +102,11 @@ export default async function HomePage() {
           <div className="card">
             <h3>🎨 How This Works</h3>
             <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8', color: '#666' }}>
-              <li>User clicks "Sign in with Google"</li>
+              <li>User clicks &quot;Sign in with Google&quot;</li>
               <li>Server initiates OAuth flow with PKCE</li>
-              <li>Google redirects to <code>/api/auth/callback</code></li>
+              <li>
+                Google redirects to <code>/api/auth/callback</code>
+              </li>
               <li>Server exchanges code for tokens</li>
               <li>Tokens stored in encrypted session cookie</li>
               <li>Server components can access session directly</li>

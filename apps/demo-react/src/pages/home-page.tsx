@@ -62,8 +62,8 @@ export default function HomePage() {
             <div className="feature-card">
               <h3>🎯 Single OAuth Client</h3>
               <p>
-                All your apps share one Google OAuth client. Add new apps by just registering
-                their redirect URIs.
+                All your apps share one Google OAuth client. Add new apps by just registering their
+                redirect URIs.
               </p>
             </div>
 

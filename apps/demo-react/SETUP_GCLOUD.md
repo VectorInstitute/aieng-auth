@@ -61,6 +61,7 @@ nano .env
 ```
 
 Update these two lines with your values:
+
 ```bash
 VITE_GOOGLE_CLIENT_ID=<paste-your-client-id-here>.apps.googleusercontent.com
 VITE_GOOGLE_CLIENT_SECRET=GOCSPX-<paste-your-client-secret-here>
@@ -85,14 +86,17 @@ open "https://console.cloud.google.com/apis/credentials?project=coderd"
 ## Troubleshooting
 
 **Error: "redirect_uri_mismatch"**
+
 - Make sure `http://localhost:3000/callback` is exactly in the authorized redirect URIs
 - No trailing slash, no different port
 
 **Error: "access_denied" or "admin_policy_enforced"**
+
 - Your organization may have restrictions
 - Make sure OAuth consent screen is set to "Internal"
 - Contact your Google Workspace admin
 
 **Can't see "Internal" option in consent screen**
+
 - You need to be in a Google Workspace organization
 - If using personal Gmail, use "External" (but you'll need to add test users)

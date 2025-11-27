@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['@cyberark-auth/eslint-config'],
+  extends: ['@aieng-auth/eslint-config'],
   parserOptions: {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,

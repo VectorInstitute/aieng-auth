@@ -1,4 +1,9 @@
-import { generatePKCE, verifyPKCE, generateRandomString, base64UrlEncode } from '../src/client/pkce';
+import {
+  generatePKCE,
+  verifyPKCE,
+  generateRandomString,
+  base64UrlEncode,
+} from '../src/client/pkce';
 
 describe('PKCE Utilities', () => {
   describe('generateRandomString', () => {
