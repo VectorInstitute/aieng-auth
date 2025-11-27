@@ -18,8 +18,8 @@ export default function HomePage() {
   return (
     <div className="container">
       <div className="header">
-        <h1>🔐 Google OAuth SSO Demo</h1>
-        <p>Seamless authentication across all your apps</p>
+        <h1>Google OAuth SSO Demo</h1>
+        <p>Production-ready authentication for internal applications</p>
       </div>
 
       {error && (
@@ -32,14 +32,13 @@ export default function HomePage() {
       {!isAuthenticated ? (
         <>
           <div className="card">
-            <h2>Welcome!</h2>
+            <h2>Welcome</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>
-              This demo shows how simple it is to add Google OAuth SSO to your app using{' '}
-              <code>@aieng-auth/react</code>
+              Add Google OAuth SSO using <code>@aieng-auth/react</code>
             </p>
 
             <div className="info-box">
-              <strong>✨ Integration is 3 steps:</strong>
+              <strong>Quick Start:</strong>
               <ol style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
                 <li>
                   Install: <code>pnpm add @aieng-auth/react</code>
@@ -47,50 +46,37 @@ export default function HomePage() {
                 <li>
                   Wrap app with <code>&lt;AuthProvider&gt;</code>
                 </li>
-                <li>
-                  Set env vars: <code>CLIENT_ID</code> and <code>REDIRECT_URI</code>
-                </li>
+                <li>Configure CLIENT_ID and REDIRECT_URI</li>
               </ol>
             </div>
 
             <button className="button" onClick={login}>
-              Sign in with Google →
+              Sign in with Google
             </button>
           </div>
 
           <div className="grid">
             <div className="feature-card">
-              <h3>🎯 Single OAuth Client</h3>
-              <p>
-                All your apps share one Google OAuth client. Add new apps by just registering their
-                redirect URIs.
-              </p>
+              <h3>Single OAuth Client</h3>
+              <p>Share one Google OAuth client across multiple apps for seamless SSO.</p>
             </div>
 
             <div className="feature-card">
-              <h3>🔒 Domain Restriction</h3>
-              <p>
-                Restrict access to @vectorinstitute.ai emails. Only authorized users can sign in.
-              </p>
+              <h3>Domain Restriction</h3>
+              <p>Restrict access by email domain for authorized users only.</p>
             </div>
 
             <div className="feature-card">
-              <h3>⚡ Zero Backend</h3>
-              <p>
-                Pure client-side with PKCE security. No server needed for OAuth flow. Deploy
-                anywhere.
-              </p>
+              <h3>Client-side OAuth</h3>
+              <p>PKCE security with no backend required.</p>
             </div>
           </div>
         </>
       ) : (
         <>
           <div className="card">
-            <h2>✅ Authenticated</h2>
-            <p style={{ marginBottom: '1.5rem', color: '#666' }}>
-              You're signed in! This authentication works across all apps using the same OAuth
-              client.
-            </p>
+            <h2>Authenticated</h2>
+            <p style={{ marginBottom: '1.5rem', color: '#666' }}>Signed in successfully.</p>
 
             <div className="user-info">
               {user?.picture && (
@@ -120,7 +106,7 @@ export default function HomePage() {
 
             <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
               <Link to="/dashboard">
-                <button className="button">Go to Dashboard →</button>
+                <button className="button">Dashboard</button>
               </Link>
               <button className="button secondary" onClick={logout}>
                 Logout
@@ -129,15 +115,13 @@ export default function HomePage() {
           </div>
 
           <div className="card">
-            <h3>🎨 How This Works</h3>
+            <h3>Authentication Flow</h3>
             <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8', color: '#666' }}>
-              <li>User clicks "Sign in with Google"</li>
-              <li>Redirects to Google OAuth (with PKCE challenge)</li>
-              <li>User authorizes and redirects back to /callback</li>
-              <li>Exchanges code for tokens (with PKCE verifier)</li>
-              <li>Validates email domain (if configured)</li>
-              <li>Stores tokens and user info in context</li>
-              <li>App can now make authenticated requests</li>
+              <li>Initiate OAuth with PKCE challenge</li>
+              <li>Redirect to Google for authorization</li>
+              <li>Exchange authorization code for tokens</li>
+              <li>Validate email domain</li>
+              <li>Store session and user info</li>
             </ul>
           </div>
         </>

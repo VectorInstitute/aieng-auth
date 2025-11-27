@@ -1,25 +1,21 @@
 # @aieng-auth
 
-> Production-ready Google OAuth SSO for all your web applications
+Production-ready Google OAuth SSO for Vector internal web applications.
 
-Seamless single sign-on across multiple apps using **one shared Google OAuth client**. Perfect for organizations that want to add authentication to internal tools with minimal configuration.
+## Key Features
 
-## 🎯 Key Features
+- Share one Google OAuth client across multiple apps for seamless SSO
+- Client-side OAuth with PKCE security (no backend required)
+- Domain restriction by email (e.g., @vectorinstitute.ai)
+- React hooks and components with full TypeScript support
 
-- **Single OAuth Client, Multiple Apps** - All your apps share one Google OAuth client for seamless SSO
-- **3-Step Integration** - Install, wrap, configure. That's it.
-- **Domain Restriction** - Restrict access to specific email domains (e.g., @vectorinstitute.ai)
-- **Zero Backend Required** - Pure client-side OAuth with PKCE security
-- **Framework Support** - React hooks + components (Next.js coming soon)
-- **TypeScript First** - Fully typed for excellent DX
+## Packages
 
-## 📦 Packages
+- `@aieng-auth/core` - Framework-agnostic OAuth client with PKCE
+- `@aieng-auth/react` - React hooks and components (AuthProvider, useAuth, ProtectedRoute)
+- `demo-react` - Demo application
 
-- **`@aieng-auth/core`** ✅ - Framework-agnostic OAuth client with PKCE
-- **`@aieng-auth/react`** ✅ - React hooks and components (AuthProvider, useAuth, ProtectedRoute)
-- **`demo-react`** ✅ - Live demo application
-
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Install
 
@@ -68,7 +64,7 @@ function MyComponent() {
 }
 ```
 
-## 🏗️ Architecture: Single OAuth Client Model
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -96,28 +92,22 @@ function MyComponent() {
          Seamless SSO across all apps
 ```
 
-**For Developers**: Adding auth to a new app is simple:
+All apps share one OAuth client. To add auth to a new app:
 
 1. Get the shared client ID from your admin
-2. Ask admin to register your redirect URI
-3. Install package and configure (2 env vars)
-4. Done!
+2. Ask admin to add your redirect URI to the OAuth client
+3. Install and configure with environment variables
 
-## 🔧 Setup Google OAuth
+## Setup Google OAuth
 
-### One-Time Admin Setup
+### Admin Setup (One-Time)
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a project or select existing
-3. Enable Google+ API
-4. Create OAuth 2.0 credentials:
-   - Application type: **Web application**
-   - Authorized redirect URIs: Add all your app callback URLs
-5. Copy the Client ID
+1. Create OAuth 2.0 credentials in [Google Cloud Console](https://console.cloud.google.com/)
+2. Set application type to Web application
+3. Add all app callback URLs to Authorized redirect URIs
+4. Share the Client ID with developers
 
-### Per-App Setup
-
-Each developer just needs:
+### Developer Setup
 
 ```bash
 # .env
@@ -126,41 +116,27 @@ VITE_REDIRECT_URI=http://localhost:3000/callback
 VITE_ALLOWED_DOMAINS=vectorinstitute.ai
 ```
 
-## 📖 Demo
+## Demo
 
-See the live demo in `apps/demo-react`:
+Run the demo app:
 
 ```bash
 cd apps/demo-react
-cp .env.example .env
-# Add your Google OAuth Client ID
+cp .env.example .env  # Add your Google OAuth Client ID
 pnpm dev
 ```
 
-## 🔒 Security
+## Security
 
-- **PKCE (Proof Key for Code Exchange)** - Prevents authorization code interception
-- **SHA-256 Challenge** - Cryptographically secure
-- **Memory Storage (default)** - XSS-immune token storage
-- **Domain Validation** - Restrict access by email domain
-- **Automatic Token Refresh** - Seamless session management
+- PKCE (Proof Key for Code Exchange) with SHA-256 challenge
+- Memory storage (XSS-immune)
+- Domain validation for email restrictions
+- Automatic token refresh
 
-## 🛠️ Development
+## Development
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Build all packages
-pnpm build
-
-# Run tests
-pnpm test
-
-# Run demo
-cd apps/demo-react && pnpm dev
+pnpm install  # Install dependencies
+pnpm build    # Build all packages
+pnpm test     # Run tests
 ```
-
-## 📝 License
-
-MIT

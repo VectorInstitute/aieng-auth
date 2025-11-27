@@ -75,8 +75,8 @@ export default function DemoPage() {
   return (
     <div className="container">
       <div className="header">
-        <h1>🔐 Interactive Demo</h1>
-        <p>Test the CyberArk Auth core package</p>
+        <h1>Interactive Demo</h1>
+        <p>Test the aieng-auth core package</p>
       </div>
 
       <div className="nav">
@@ -98,7 +98,7 @@ export default function DemoPage() {
 
         {pkce && (
           <div style={{ marginTop: '1rem' }}>
-            <div className="status success">✅ PKCE Generated</div>
+            <div className="status success">PKCE Generated</div>
             <div className="code-block">
               <pre>
                 {JSON.stringify(
@@ -153,9 +153,9 @@ export default function DemoPage() {
             </button>
           </div>
           <p style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#666' }}>
-            {storageType === 'memory' && '🔒 Most secure - tokens lost on refresh'}
-            {storageType === 'session' && '⚠️ Persists during session - XSS vulnerable'}
-            {storageType === 'local' && '⚠️ Persists across sessions - least secure'}
+            {storageType === 'memory' && 'Most secure - tokens lost on refresh'}
+            {storageType === 'session' && 'Persists during session - XSS vulnerable'}
+            {storageType === 'local' && 'Persists across sessions - least secure'}
           </p>
         </div>
 
@@ -173,7 +173,7 @@ export default function DemoPage() {
 
         {tokens && (
           <div style={{ marginTop: '1rem' }}>
-            <div className="status success">✅ Tokens Available</div>
+            <div className="status success">Tokens Available</div>
             <div className="code-block">
               <pre>
                 {JSON.stringify(
@@ -195,8 +195,7 @@ export default function DemoPage() {
               <strong>Token Validation:</strong>
               <div className="user-info" style={{ marginTop: '0.5rem' }}>
                 <p>
-                  <strong>Expired:</strong>{' '}
-                  {isTokenExpired(tokens.accessToken) ? '❌ Yes' : '✅ No'}
+                  <strong>Expired:</strong> {isTokenExpired(tokens.accessToken) ? 'Yes' : 'No'}
                 </p>
                 <p>
                   <strong>Decoded Claims:</strong>
@@ -211,14 +210,14 @@ export default function DemoPage() {
 
         {!tokens && (
           <div style={{ marginTop: '1rem' }}>
-            <div className="status info">ℹ️ No tokens stored</div>
+            <div className="status info">No tokens stored</div>
           </div>
         )}
       </div>
 
       {/* Info Section */}
       <div className="card">
-        <h2>📚 Next Steps</h2>
+        <h2>Next Steps</h2>
         <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8', color: '#666' }}>
           <li>
             <strong>For Real OAuth:</strong> Configure .env with your Google OAuth credentials

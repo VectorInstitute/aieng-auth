@@ -12,24 +12,23 @@ export default async function HomePage() {
   return (
     <div className="container">
       <div className="header">
-        <h1>🔐 Google OAuth SSO Demo (Next.js)</h1>
-        <p>Server-side sessions with App Router</p>
+        <h1>Google OAuth SSO Demo (Next.js)</h1>
+        <p>Server-side authentication with App Router</p>
       </div>
 
       {!isAuthenticated ? (
         <>
           <div className="card">
-            <h2>Welcome!</h2>
+            <h2>Welcome</h2>
             <p style={{ marginBottom: '1.5rem', color: '#666' }}>
-              This demo shows server-side OAuth with Next.js App Router. Unlike the React SPA,
-              tokens are stored securely in HTTP-only cookies.
+              Server-side OAuth with HTTP-only cookies for secure token storage.
             </p>
 
             <div className="info-box">
-              <strong>✨ Next.js Integration:</strong>
+              <strong>Features:</strong>
               <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
                 <li>Server-side session management</li>
-                <li>HTTP-only cookies (XSS immune)</li>
+                <li>HTTP-only cookies (XSS protection)</li>
                 <li>API routes for OAuth flow</li>
                 <li>Middleware for protected routes</li>
               </ul>
@@ -40,30 +39,26 @@ export default async function HomePage() {
 
           <div className="grid">
             <div className="feature-card">
-              <h3>🔒 More Secure</h3>
-              <p>Tokens never touch the browser. Stored in HTTP-only cookies on the server.</p>
+              <h3>Secure Storage</h3>
+              <p>Tokens stored in HTTP-only cookies, never exposed to browser.</p>
             </div>
 
             <div className="feature-card">
-              <h3>⚡ SSR Ready</h3>
-              <p>
-                Authentication works with Server Components. No client-side JavaScript required.
-              </p>
+              <h3>Server Components</h3>
+              <p>Authentication integrated with Next.js Server Components.</p>
             </div>
 
             <div className="feature-card">
-              <h3>🎯 Production Ready</h3>
-              <p>Built for production with session management and automatic token refresh.</p>
+              <h3>Auto Refresh</h3>
+              <p>Session management with automatic token refresh.</p>
             </div>
           </div>
         </>
       ) : (
         <>
           <div className="card">
-            <h2>✅ Authenticated</h2>
-            <p style={{ marginBottom: '1.5rem', color: '#666' }}>
-              You&apos;re signed in with server-side session management!
-            </p>
+            <h2>Authenticated</h2>
+            <p style={{ marginBottom: '1.5rem', color: '#666' }}>Server-side session active.</p>
 
             <div className="user-info">
               {user?.picture && (
@@ -93,23 +88,20 @@ export default async function HomePage() {
 
             <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
               <Link href="/dashboard">
-                <button className="button">Go to Dashboard →</button>
+                <button className="button">Dashboard</button>
               </Link>
               <LogoutButton />
             </div>
           </div>
 
           <div className="card">
-            <h3>🎨 How This Works</h3>
+            <h3>Authentication Flow</h3>
             <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8', color: '#666' }}>
-              <li>User clicks &quot;Sign in with Google&quot;</li>
-              <li>Server initiates OAuth flow with PKCE</li>
-              <li>
-                Google redirects to <code>/api/auth/callback</code>
-              </li>
-              <li>Server exchanges code for tokens</li>
-              <li>Tokens stored in encrypted session cookie</li>
-              <li>Server components can access session directly</li>
+              <li>Server initiates OAuth with PKCE</li>
+              <li>Redirect to Google for authorization</li>
+              <li>Exchange code for tokens at callback</li>
+              <li>Store tokens in encrypted session cookie</li>
+              <li>Server components access session directly</li>
             </ul>
           </div>
         </>

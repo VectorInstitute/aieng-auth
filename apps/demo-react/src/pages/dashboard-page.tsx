@@ -21,8 +21,8 @@ export default function DashboardPage() {
   return (
     <div className="container">
       <div className="header">
-        <h1>📊 Dashboard</h1>
-        <p>Protected page - only accessible when authenticated</p>
+        <h1>Dashboard</h1>
+        <p>Protected page</p>
       </div>
 
       <div className="nav">
@@ -35,12 +35,9 @@ export default function DashboardPage() {
       </div>
 
       <div className="card">
-        <h2>Welcome, {user?.name}!</h2>
-        <p style={{ color: '#666', marginBottom: '1.5rem' }}>
-          This is a protected route. You can only see this page because you're authenticated.
-        </p>
+        <h2>Welcome, {user?.name}</h2>
 
-        <div className="status success">✅ Authentication Active</div>
+        <div className="status success">Authentication active</div>
 
         <div style={{ marginTop: '1.5rem' }}>
           <h3>User Information</h3>
@@ -48,23 +45,6 @@ export default function DashboardPage() {
             <pre>{JSON.stringify(user, null, 2)}</pre>
           </div>
         </div>
-      </div>
-
-      <div className="card">
-        <h3>💡 In Your Real App</h3>
-        <ul style={{ marginLeft: '1.5rem', lineHeight: '1.8', color: '#666' }}>
-          <li>
-            Use <code>useAuth()</code> hook to access user and auth state
-          </li>
-          <li>
-            Use <code>useToken()</code> hook to get access token for API calls
-          </li>
-          <li>
-            Wrap protected routes with <code>&lt;ProtectedRoute&gt;</code> component
-          </li>
-          <li>Tokens automatically refresh before expiry</li>
-          <li>User stays logged in across page refreshes (if using persistent storage)</li>
-        </ul>
       </div>
     </div>
   );
