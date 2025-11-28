@@ -49,13 +49,14 @@ jobs:
           version: pnpm changeset version
           # Publishes packages when version PR is merged
           # Using --provenance for npm Trusted Publishers
-          publish: pnpm changeset publish --provenance
+          publish: npx changeset publish --provenance
           # Commit message for version PR
           commit: 'chore: version packages'
           # Title for version PR
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
 
       - name: Create GitHub Release
         if: steps.changesets.outputs.published == 'true'
