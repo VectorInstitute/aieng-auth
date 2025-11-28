@@ -31,6 +31,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -41,6 +42,9 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Remove .npmrc for OIDC authentication
+        run: rm -f ~/.npmrc
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
@@ -49,14 +53,13 @@ jobs:
           version: pnpm changeset version
           # Publishes packages when version PR is merged
           # Using --provenance for npm Trusted Publishers
-          publish: npx changeset publish --provenance
+          publish: pnpm changeset publish --provenance
           # Commit message for version PR
           commit: 'chore: version packages'
           # Title for version PR
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
 
       - name: Create GitHub Release
         if: steps.changesets.outputs.published == 'true'
