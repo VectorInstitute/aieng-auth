@@ -122,6 +122,7 @@ Provides authentication context to your application.
 ```
 
 **Props:**
+
 - `config` (required): Authentication configuration object
   - `clientId`: Google OAuth client ID
   - `clientSecret`: Google OAuth client secret
@@ -136,19 +137,12 @@ Provides authentication context to your application.
 Access authentication state and methods.
 
 ```tsx
-const {
-  isAuthenticated,
-  isLoading,
-  user,
-  error,
-  login,
-  logout,
-  handleCallback,
-  refreshToken,
-} = useAuth();
+const { isAuthenticated, isLoading, user, error, login, logout, handleCallback, refreshToken } =
+  useAuth();
 ```
 
 **Returns:**
+
 - `isAuthenticated`: Boolean indicating if user is authenticated
 - `isLoading`: Boolean indicating if authentication is in progress
 - `user`: User object with profile information (name, email, picture, etc.)
@@ -167,6 +161,7 @@ const { accessToken, isValid, refresh } = useToken();
 ```
 
 **Returns:**
+
 - `accessToken`: Current access token (string or null)
 - `isValid`: Boolean indicating if the token is valid
 - `refresh()`: Function to refresh the token
@@ -185,10 +180,11 @@ import { ProtectedRoute } from '@vector-institute/aieng-auth-react';
       <DashboardPage />
     </ProtectedRoute>
   }
-/>
+/>;
 ```
 
 **Props:**
+
 - `children`: React children to render if authenticated
 - `redirectTo`: Path to redirect to if not authenticated (default: '/')
 
@@ -230,7 +226,7 @@ import { SessionStorageAdapter } from '@vector-institute/aieng-auth-core';
 
 <AuthProvider config={authConfig} storage={new SessionStorageAdapter()}>
   {children}
-</AuthProvider>
+</AuthProvider>;
 ```
 
 ## Security Best Practices
