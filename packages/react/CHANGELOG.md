@@ -1,5 +1,11 @@
 # @vector-institute/aieng-auth-react
 
+## 0.1.4
+
+### Patch Changes
+
+- a5d707e: Add comprehensive README documentation with usage examples, API reference, and best practices
+
 ## 0.1.3
 
 ### Patch Changes
