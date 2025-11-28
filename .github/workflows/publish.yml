@@ -16,6 +16,10 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write # Required for OIDC authentication to npm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,9 +33,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Upgrade npm to v11.5.1+ for Trusted Publishers
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -42,9 +49,6 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Remove .npmrc for OIDC authentication
-        run: rm -f ~/.npmrc
-
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
@@ -52,8 +56,8 @@ jobs:
           # Creates a "Version Packages" PR when changesets are added
           version: pnpm changeset version
           # Publishes packages when version PR is merged
-          # Using --provenance for npm Trusted Publishers
-          publish: pnpm changeset publish --provenance
+          # Provenance is automatic with OIDC - no --provenance flag needed
+          publish: pnpm changeset publish
           # Commit message for version PR
           commit: 'chore: version packages'
           # Title for version PR
